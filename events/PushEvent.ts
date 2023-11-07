@@ -43,9 +43,9 @@ class PushEvent extends Event {
       description: [
         `>>> There's been **${commits.length}** ${commits.length === 1 ? "commit" : "commits"} to [\`${repository.full_name}\`](https://github.com/${repository.full_name})`,
         "```diff",
-        added.length > 0 ? `+ Added ${added.length} ${added.length === 1 ? "files" : "files"}` : "",
-        removed.length > 0 ? `- Deleted ${removed.length} ${removed.length === 1 ? "files" : "files"}` : "",
-        modified.length > 0 ? `! Modified ${modified.length} ${modified.length === 1 ? "files" : "files"}` : "",
+        added.length > 0 ? `+ Added ${added.length} ${added.length === 1 ? "file" : "files"}` : "",
+        removed.length > 0 ? `- Deleted ${removed.length} ${removed.length === 1 ? "file" : "files"}` : "",
+        modified.length > 0 ? `! Modified ${modified.length} ${modified.length === 1 ? "file" : "files"}` : "",
         "```"
       ].join("\n"),
       fields: commits.map((commit: PartialCommit) => ({
