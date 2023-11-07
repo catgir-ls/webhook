@@ -77,7 +77,8 @@ class Router {
       status: 500
     });
 
-    Logger.log(`Received ${event}`);
+    if(Config.get<boolean>("app", "debug")) Logger.log(`Received ${event}`);
+    
     EventManager.emit(<EventType>event, body);
 
     return new Response(null, {
@@ -86,19 +87,30 @@ class Router {
   };
 
   public listen = (port: number) => {
-    if (this.#server) return;
+    if(this.#server) return;
 
-    this.#server = Deno.serve({
-      port: port ?? 3000,
+    try {
+      this.#server = Deno.serve({
+        port: port ?? 3000,
+  
+        onListen: () => Logger.log(`Succesfully bound to ${APP_PORT} - http://localhost:${APP_PORT}`),
+  
+        onError: (e: unknown) => {
+          if(e instanceof Error)
+            Logger.error(e.message ?? e.toString());
 
-      onListen: () => Logger.log(`Succesfully bound to ${APP_PORT} - http://localhost:${APP_PORT}`),
+          return new Response("500 Internal Server Error", {
+            status: 500
+          });
+        }
+      }, this.handler);
+    } catch(e) {
+      if(!(e instanceof Deno.errors.AddrInUse))
+        throw e;
 
-      onError: () => {
-        Logger.error(`Unable to bind to port: ${APP_PORT} - is something already running?`);
-
-        Deno.exit(1);
-      }
-    }, this.handler);
+      Logger.error(`Unable to bind to port: ${APP_PORT} - is something already running?`);
+      Deno.exit(1);
+    }
   };
 }
 
