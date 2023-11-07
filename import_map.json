@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "@types": "./types/mod.ts",
+
+    "@managers": "./managers/mod.ts",
+    "@events": "./events/mod.ts"
+  }
+}
