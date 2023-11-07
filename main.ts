@@ -71,7 +71,7 @@ class Router {
     const body = await req.json();
 
     if(
-      req.headers.get("X-Hub-Signature-256") && 
+      !req.headers.get("X-Hub-Signature-256") ||
       !await this.isValidSecret(req.headers.get("X-Hub-Signature-256")!, JSON.stringify(body))
     ) return new Response("500 Internal Server Error", {
       status: 500
