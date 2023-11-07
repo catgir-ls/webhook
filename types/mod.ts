@@ -29,7 +29,7 @@ export type PartialCommit = {
 // Enums
 export enum EventType {
   PING = "ping", META = "meta",
-  PUSH = "push"
+  PUSH = "push", WORKFLOW_JOB = "workflow_job"
 }
 
 export enum Color {

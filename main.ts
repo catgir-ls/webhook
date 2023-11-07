@@ -9,7 +9,11 @@ import { Config, Logger } from "@utils";
 import { EventManager } from "@managers";
 
 // Events
-import { PingEvent, MetaEvent, BranchCreateEvent, PushEvent } from "@events";
+import {
+  PingEvent, MetaEvent, 
+  BranchCreateEvent, PushEvent,
+  WorkflowJobEvent
+} from "@events";
 
 // Types
 import { EventType } from "@types";
@@ -77,7 +81,12 @@ class Router {
       status: 500
     });
 
-    if(Config.get<boolean>("app", "debug")) Logger.log(`Received "${event}" event`);
+    if(Config.get<boolean>("app", "debug")) {
+      const time = new Date().getTime();
+
+      Logger.log(`Received "${event}" event (${event}-${time})`);
+      Deno.writeTextFileSync(`./data/${event}-${time}.json`, JSON.stringify(body, null, 2));
+    }
     
     EventManager.emit(<EventType>event, body);
 
@@ -117,7 +126,8 @@ class Router {
 // Register Events
 EventManager.register([
   new PingEvent(), new MetaEvent(),
-  new BranchCreateEvent(), new PushEvent()
+  new BranchCreateEvent(), new PushEvent(),
+  new WorkflowJobEvent()
 ]);
 
 Logger.log("Succesfully registered events!");

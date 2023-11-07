@@ -7,5 +7,6 @@ import PingEvent from "./PingEvent.ts";
 import MetaEvent from "./MetaEvent.ts";
 import PushEvent from "./PushEvent.ts";
 import BranchCreateEvent from "./BranchCreateEvent.ts";
+import WorkflowJobEvent from "./WorkflowJobEvent.ts";
 
-export { PingEvent, MetaEvent, PushEvent, BranchCreateEvent }
+export { PingEvent, MetaEvent, PushEvent, BranchCreateEvent, WorkflowJobEvent }
