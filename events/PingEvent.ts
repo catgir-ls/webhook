@@ -10,6 +10,9 @@ import {
   EventType
 } from "@types";
 
+// Webhook
+import Webhook from "@webhook";
+
 // PingEvent Class
 class PingEvent extends Event {
   constructor() {
@@ -21,6 +24,11 @@ class PingEvent extends Event {
 
   public execute = ({ repository, sender }: Obj) => {
     console.log(`[x] Added to ${repository.full_name} by ${sender.login}`);
+
+    Webhook.send({
+      description: `> Added to [\`${repository.full_name}\`](https://github.com/${repository.full_name})`,
+      ...Webhook.getDefaults(sender)
+    });
   }
 }
 

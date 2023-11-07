@@ -5,11 +5,15 @@
 // Types
 import {
   type Obj,
-  type Commit,
+
+  type PartialCommit,
   
   Event,
   EventType
 } from "@types";
+
+// Webhook
+import Webhook from "@webhook";
 
 // PushEvent Class
 class PushEvent extends Event {
@@ -20,9 +24,9 @@ class PushEvent extends Event {
     })
   }
 
-  public execute = ({ ref, repository, commits }: Obj) => {
-    const { added, removed, modified }: Commit = commits.reduce(
-      (acc: Commit, obj: Commit) => ({
+  public execute = ({ ref, repository, commits, sender }: Obj) => {
+    const { added, removed, modified }: PartialCommit = commits.reduce(
+      (acc: PartialCommit, obj: PartialCommit) => ({
         added: [...acc.added, ...obj.added],
         removed: [...acc.removed, ...obj.removed],
         modified: [...acc.modified, ...obj.modified],
@@ -30,9 +34,27 @@ class PushEvent extends Event {
       { added: [], removed: [], modified: [] }
     );
 
-    console.log(`= Repository: ${repository.full_name} (${ref.split("refs/heads/")[1]})`);
-    console.log(`= Commits: ${commits.length}`);
-    console.log(`= Added: ${added.length} | Removed: ${removed.length} | Modified: ${modified.length}`);
+    // console.log(`= Repository: ${repository.full_name} (${ref.split("refs/heads/")[1]})`);
+    // console.log(`= Commits: ${commits.length}`);
+    // console.log(`= Added: ${added.length} | Removed: ${removed.length} | Modified: ${modified.length}`);
+
+    Webhook.send({
+      title: `Commit to ${repository.full_name} (${ref.split("heads/")[1]})`,
+      description: [
+        `>>> There's been **${commits.length}** ${commits.length === 1 ? "commit" : "commits"} to [\`${repository.full_name}\`](https://github.com/${repository.full_name})`,
+        "```diff",
+        added.length > 0 ? `+ Added ${added.length} ${added.length === 1 ? "files" : "files"}` : "",
+        removed.length > 0 ? `- Deleted ${removed.length} ${removed.length === 1 ? "files" : "files"}` : "",
+        modified.length > 0 ? `! Modified ${modified.length} ${modified.length === 1 ? "files" : "files"}` : "",
+        "```"
+      ].join("\n"),
+      fields: commits.map((commit: PartialCommit) => ({
+        name: `\`${commit.id.slice(0, 8)}\``,
+        value: `\`\`\`fix\n${commit.message}\n\`\`\``,
+        inline: true
+      })),
+      ...Webhook.getDefaults(sender)
+    });
   }
 }
 

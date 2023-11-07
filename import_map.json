@@ -3,6 +3,8 @@
     "@types": "./types/mod.ts",
 
     "@managers": "./managers/mod.ts",
-    "@events": "./events/mod.ts"
+    "@events": "./events/mod.ts",
+
+    "@webhook": "./webhook/mod.ts"
   }
 }

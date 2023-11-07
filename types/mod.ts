@@ -12,7 +12,15 @@ export type EventOpts = {
   events: EventType[]
 }
 
-export type Commit = {
+export type PartialSender = {
+  login: string,
+  avatar_url: string
+}
+
+export type PartialCommit = {
+  id: string,
+  message: string
+
   added: string[],
   removed: string[]
   modified: string[]

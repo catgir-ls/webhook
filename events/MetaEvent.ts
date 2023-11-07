@@ -10,6 +10,10 @@ import {
   EventType
 } from "@types";
 
+
+// Webhook
+import Webhook from "@webhook";
+
 // MetaEvent Class
 class MetaEvent extends Event {
   constructor() {
@@ -25,6 +29,11 @@ class MetaEvent extends Event {
     }
 
     console.log(`[x] Removed from ${repository.full_name} by ${sender.login}`);
+
+    Webhook.send({
+      description: `> Removed from [\`${repository.full_name}\`](https://github.com/${repository.full_name})`,
+      ...Webhook.getDefaults(sender)
+    });
   }
 }
 
