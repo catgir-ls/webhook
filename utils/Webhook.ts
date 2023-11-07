@@ -1,15 +1,16 @@
 /**
  * @author e991f665b7e62df5a54fdef19053a4e75117b89 <c@catgir.ls>
- * 
- * TODO: Add config, remove webhook environment variable
  */
+
+// Utils
+import { Config } from "@utils";
 
 // Types
 import type { Obj, PartialSender } from "@types";
 
 // Webhook Class
 class Webhook {
-  public static send = async (embed: Obj) => await fetch(Deno.env.get("WEBHOOK_URL")!, { 
+  public static send = async (embed: Obj) => await fetch(Config.get<string>("app", "webhook_url"), { 
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

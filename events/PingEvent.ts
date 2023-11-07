@@ -10,8 +10,8 @@ import {
   EventType
 } from "@types";
 
-// Webhook
-import Webhook from "@webhook";
+// Utils
+import { Webhook } from "@utils";
 
 // PingEvent Class
 class PingEvent extends Event {

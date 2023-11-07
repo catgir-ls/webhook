@@ -10,8 +10,8 @@ import {
   EventType
 } from "@types";
 
-// Webhook
-import Webhook from "@webhook";
+// Utils
+import { Webhook } from "@utils";
 
 // BranchCreateEvent Class
 class BranchCreateEvent extends Event {

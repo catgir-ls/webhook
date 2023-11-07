@@ -1,10 +1,11 @@
 {
   "imports": {
+    "@deps": "./deps.ts",
     "@types": "./types/mod.ts",
 
     "@managers": "./managers/mod.ts",
     "@events": "./events/mod.ts",
 
-    "@webhook": "./webhook/mod.ts"
+    "@utils": "./utils/mod.ts"
   }
 }

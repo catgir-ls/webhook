@@ -2,8 +2,8 @@
  * @author e991f665b7e62df5a54fdef19053a4e75117b89 <c@catgir.ls>
  */
 
-// Types
-import { EventType, } from "@types";
+// Utils
+import { Config, Logger } from "@utils";
 
 // Managers
 import { EventManager } from "@managers";
@@ -11,21 +11,42 @@ import { EventManager } from "@managers";
 // Events
 import { PingEvent, MetaEvent, BranchCreateEvent, PushEvent } from "@events";
 
+// Types
+import { EventType } from "@types";
+
+// Config
+const config = Deno.env.get("CONFIG") ?? (
+  Deno.env.get("ENVIRONMENT") === "development"
+    ? "config.dev.toml"
+    : "config.toml"
+);
+
+await Config.load(config);
+
+Logger.log(`Loaded ${Object.keys(Config.get()).length} item(s) into the config!`);
+
 // Variables
 const Encoder = new TextEncoder();
+
+// Constants
+const APP_PORT = Config.get<number>("app", "port");
 
 // Router Classs
 class Router {
   #server: Deno.Server | null = null;
+  
+  readonly #secret: string;
 
-  constructor() {}
+  constructor(secret: string) {
+    this.#secret = secret;
+  }
 
   public isValidSecret = async (
     signature: string,
     payload: string
   ): Promise<boolean> => {
     const key = await crypto.subtle.importKey(
-      "raw", Encoder.encode(Deno.env.get("SECRET")!),
+      "raw", Encoder.encode(this.#secret),
       { name: "HMAC", hash: { name: "SHA-256" } },
       false, [ "sign", "verify" ]
     );
@@ -68,6 +89,14 @@ class Router {
 
     this.#server = Deno.serve({
       port: port ?? 3000,
+
+      onListen: () => Logger.log(`Succesfully bound to ${APP_PORT} - http://localhost:${APP_PORT}`),
+
+      onError: () => {
+        Logger.error(`Unable to bind to port: ${APP_PORT} - is something already running?`);
+
+        Deno.exit(1);
+      }
     }, this.handler);
   };
 }
@@ -78,5 +107,7 @@ EventManager.register([
   new BranchCreateEvent(), new PushEvent()
 ]);
 
+Logger.log("Succesfully registered events!");
+
 // Initialize Router
-new Router().listen(3000);
+new Router(Config.get<string>("app", "secret")).listen(APP_PORT);

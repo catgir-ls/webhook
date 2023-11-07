@@ -11,8 +11,8 @@ import {
 } from "@types";
 
 
-// Webhook
-import Webhook from "@webhook";
+// Utils
+import { Webhook } from "@utils";
 
 // MetaEvent Class
 class MetaEvent extends Event {

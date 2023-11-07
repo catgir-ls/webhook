@@ -12,8 +12,8 @@ import {
   EventType
 } from "@types";
 
-// Webhook
-import Webhook from "@webhook";
+// Utils
+import { Webhook } from "@utils";
 
 // PushEvent Class
 class PushEvent extends Event {
