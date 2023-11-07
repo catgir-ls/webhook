@@ -1,4 +1,5 @@
 [app]
+debug = false
 port = 3000
 secret = ""
 webhook_url = ""
