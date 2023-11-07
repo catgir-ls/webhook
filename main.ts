@@ -77,6 +77,7 @@ class Router {
       status: 500
     });
 
+    Logger.log(`Received ${event}`);
     EventManager.emit(<EventType>event, body);
 
     return new Response(null, {
