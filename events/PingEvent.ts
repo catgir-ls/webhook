@@ -22,11 +22,11 @@ class PingEvent extends Event {
     });
   }
 
-  public execute = ({ repository, sender }: Obj) => {
-    console.log(`[x] Added to ${repository.full_name} by ${sender.login}`);
+  public execute = ({ repository, organization, sender }: Obj) => {
+    console.log(`[x] Added to ${organization.login ?? repository.full_name} by ${sender.login}`);
 
     Webhook.send({
-      description: `> Added to [\`${repository.full_name}\`](https://github.com/${repository.full_name})`,
+      description: `> Added to [\`${organization.login ?? repository.full_name}\`](https://github.com/${organization.login ?? repository.full_name})`,
       ...Webhook.getDefaults(sender)
     });
   }
