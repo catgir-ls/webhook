@@ -28,7 +28,7 @@ class MetaEvent extends Event {
       console.log(`[x] GitHub sent an invalid "meta" event!`);
     }
 
-    const name = organization.login ?? repository.full_name; 
+    const name = organization?.login ?? repository?.full_name; 
 
     console.log(`[x] Removed from ${name} by ${sender.login}`);
 
