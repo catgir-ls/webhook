@@ -77,7 +77,7 @@ class Router {
       status: 500
     });
 
-    if(Config.get<boolean>("app", "debug")) Logger.log(`Received ${event}`);
+    if(Config.get<boolean>("app", "debug")) Logger.log(`Received "${event}" event`);
     
     EventManager.emit(<EventType>event, body);
 
