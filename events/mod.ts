@@ -6,5 +6,6 @@
 import PingEvent from "./PingEvent.ts";
 import MetaEvent from "./MetaEvent.ts";
 import PushEvent from "./PushEvent.ts";
+import BranchCreateEvent from "./BranchCreateEvent.ts";
 
-export { PingEvent, MetaEvent, PushEvent }
+export { PingEvent, MetaEvent, PushEvent, BranchCreateEvent }

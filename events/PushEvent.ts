@@ -24,7 +24,7 @@ class PushEvent extends Event {
     })
   }
 
-  public execute = ({ ref, repository, commits, sender }: Obj) => {
+  public execute = async ({ ref, repository, commits, sender }: Obj) => {
     const { added, removed, modified }: PartialCommit = commits.reduce(
       (acc: PartialCommit, obj: PartialCommit) => ({
         added: [...acc.added, ...obj.added],
@@ -34,7 +34,7 @@ class PushEvent extends Event {
       { added: [], removed: [], modified: [] }
     );
 
-    Webhook.send({
+    await Webhook.send({
       title: `Commit to ${repository.full_name} (${ref.split("heads/")[1]})`,
       description: [
         `>>> There's been **${commits.length}** ${commits.length === 1 ? "commit" : "commits"} to [\`${repository.full_name}\`](https://github.com/${repository.full_name})`,

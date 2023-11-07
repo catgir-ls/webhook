@@ -9,7 +9,7 @@ import { EventType, } from "@types";
 import { EventManager } from "@managers";
 
 // Events
-import { PingEvent, MetaEvent, PushEvent } from "@events";
+import { PingEvent, MetaEvent, BranchCreateEvent, PushEvent } from "@events";
 
 // Router Classs
 class Router {
@@ -45,7 +45,8 @@ class Router {
 
 // Register Events
 EventManager.register([
-  new PingEvent(), new MetaEvent(), new PushEvent()
+  new PingEvent(), new MetaEvent(),
+  new BranchCreateEvent(), new PushEvent()
 ]);
 
 // Initialize Router

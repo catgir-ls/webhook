@@ -24,11 +24,11 @@ class EventManager {
     }
   }
 
-  public static emit = (event: EventType, data: Obj): void => {
+  public static emit = async (event: EventType, data: Obj) => {
     for(const _event of this.#events) {
       if(_event.events.indexOf(event) === -1) continue;
 
-      _event.execute(data);
+      await _event.execute(data);
     }
   }
 }

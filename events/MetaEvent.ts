@@ -23,7 +23,7 @@ class MetaEvent extends Event {
     })
   }
 
-  public execute = ({ action, repository, organization, sender }: Obj) => {
+  public execute = async ({ action, repository, organization, sender }: Obj) => {
     if(action !== "deleted") {
       console.log(`[x] GitHub sent an invalid "meta" event!`);
     }
@@ -32,7 +32,7 @@ class MetaEvent extends Event {
 
     console.log(`[x] Removed from ${name} by ${sender.login}`);
 
-    Webhook.send({
+    await Webhook.send({
       description: `> Removed from [\`${name}\`](https://github.com/${name})`,
       ...Webhook.getDefaults(sender)
     });

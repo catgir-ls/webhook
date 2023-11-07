@@ -22,12 +22,12 @@ class PingEvent extends Event {
     });
   }
 
-  public execute = ({ repository, organization, sender }: Obj) => {
+  public execute = async ({ repository, organization, sender }: Obj) => {
     const name = organization.login ?? repository.full_name; 
 
     console.log(`[x] Added to ${name} by ${sender.login}`);
 
-    Webhook.send({
+    await Webhook.send({
       description: `> Added to [\`${name}\`](https://github.com/${name})`,
       ...Webhook.getDefaults(sender)
     });

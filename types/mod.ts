@@ -42,5 +42,5 @@ export abstract class Event {
     this.events = events;
   }
 
-  abstract execute(data: Obj): void;
+  abstract execute(data: Obj): Promise<void>;
 }
