@@ -34,10 +34,6 @@ class PushEvent extends Event {
       { added: [], removed: [], modified: [] }
     );
 
-    // console.log(`= Repository: ${repository.full_name} (${ref.split("refs/heads/")[1]})`);
-    // console.log(`= Commits: ${commits.length}`);
-    // console.log(`= Added: ${added.length} | Removed: ${removed.length} | Modified: ${modified.length}`);
-
     Webhook.send({
       title: `Commit to ${repository.full_name} (${ref.split("heads/")[1]})`,
       description: [
