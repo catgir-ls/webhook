@@ -28,10 +28,12 @@ class MetaEvent extends Event {
       console.log(`[x] GitHub sent an invalid "meta" event!`);
     }
 
-    console.log(`[x] Removed from ${organization.login ?? repository.full_name} by ${sender.login}`);
+    const name = organization.login ?? repository.full_name; 
+
+    console.log(`[x] Removed from ${name} by ${sender.login}`);
 
     Webhook.send({
-      description: `> Removed from [\`${organization.login ?? repository.full_name}\`](https://github.com/${organization.login ?? repository.full_name})`,
+      description: `> Removed from [\`${name}\`](https://github.com/${name})`,
       ...Webhook.getDefaults(sender)
     });
   }
