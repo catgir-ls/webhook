@@ -5,8 +5,6 @@
 // Types
 import {
   type Obj,
-
-  type PartialCommit,
   
   Event,
   EventType
