@@ -33,11 +33,7 @@ class WorkflowJobEvent extends Event {
 
     await Webhook.send({
       title: `Pipeline for ${repository.full_name}`,
-      description,
-      fields: [{
-        name: `\`Steps\``,
-        value: `\`\`\`fix\n${workflow_job.steps.map((step: Obj) => `${step.name.replace(/\*\*\*/g, "registry")} ${step.conclusion === "success" ? "✅" : "❌"}`).join("\n")}\n\`\`\``
-      }],
+      description: `${description}\n\`\`\`fix\n${workflow_job.steps.map((step: Obj) => `${step.name.replace(/\*\*\*/g, "registry")} ${step.conclusion === "success" ? "✅" : "❌"}`).join("\n")}\n\`\`\``,
       ...Webhook.getDefaults(sender)
     });
 
