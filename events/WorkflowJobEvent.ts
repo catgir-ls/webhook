@@ -25,11 +25,15 @@ class WorkflowJobEvent extends Event {
   public execute = async ({ action, workflow_job, repository, sender }: Obj) => {
     if(action !== "completed") return;
 
-    const completed_steps = workflow_job.steps.filter((step: Obj) => step.conclusion === "success").length
+    const description = (
+      workflow_job.conclusion === "success" ?
+      `> Workflow in [\`${repository.full_name}\`](https://github.com/${repository.full_name}) has **successfully** completed **${workflow_job.steps.length}** steps ✅`
+      : `> Workflow in [\`${repository.full_name}\`](https://github.com/${repository.full_name}) has **failed** to complete successfully ⚠️`
+    );
 
     await Webhook.send({
       title: `Pipeline for ${repository.full_name}`,
-      description: `> Workflow in [\`${repository.full_name}\`](https://github.com/${repository.full_name}) has successfully completed **${completed_steps}/${workflow_job.steps.length}** steps`,
+      description,
       fields: [{
         name: `\`Steps\``,
         value: `\`\`\`fix\n${workflow_job.steps.map((step: Obj) => `${step.name.replace(/\*\*\*/g, "registry")} ${step.conclusion === "success" ? "✅" : "❌"}`).join("\n")}\n\`\`\``
