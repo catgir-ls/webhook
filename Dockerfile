@@ -1,9 +1,13 @@
-FROM denoland/deno:1.36.4 as base
+FROM denoland/deno:1.38.0
 
-WORKDIR /x
+EXPOSE 3000
+
+WORKDIR /app
+USER deno
+COPY deps.ts .
+RUN deno cache deps.ts
 
 COPY . .
-
 RUN deno cache main.ts
 
-CMD ["task", "start"]
+CMD ["run", "--A", "main.ts"]
