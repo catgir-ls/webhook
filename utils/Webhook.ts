@@ -10,7 +10,7 @@ import type { Obj, PartialSender } from "@types";
 
 // Webhook Class
 class Webhook {
-  public static send = async (embed: Obj) => await fetch(Config.get<string>("app", "webhook_url"), { 
+  public static send = async (embed: Obj) => await fetch(Config.get<string>("discord", "webhook_url"), { 
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

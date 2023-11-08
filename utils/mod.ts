@@ -6,5 +6,6 @@
 import Config from "./Config.ts";
 import Webhook from "./Webhook.ts";
 import Logger from "./Logger.ts";
+import Watchtower from "./Watchtower.ts";
 
-export { Config, Webhook, Logger }
+export { Config, Webhook, Logger, Watchtower }

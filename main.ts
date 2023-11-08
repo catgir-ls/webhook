@@ -133,4 +133,4 @@ EventManager.register([
 Logger.log("Succesfully registered events!");
 
 // Initialize Router
-new Router(Config.get<string>("app", "secret")).listen(APP_PORT);
+new Router(Config.get<string>("github", "secret")).listen(APP_PORT);

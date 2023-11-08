@@ -11,7 +11,7 @@ import {
 } from "@types";
 
 // Utils
-import { Webhook } from "@utils";
+import { Webhook, Watchtower } from "@utils";
 
 // WorkflowJobEvent Class
 class WorkflowJobEvent extends Event {
@@ -40,6 +40,9 @@ class WorkflowJobEvent extends Event {
       }],
       ...Webhook.getDefaults(sender)
     });
+
+    if(!await Watchtower.update())
+      console.log("Unable to update!");
   } 
 }
 
