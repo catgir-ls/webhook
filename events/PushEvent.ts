@@ -46,7 +46,7 @@ class PushEvent extends Event {
       ].join("\n"),
       fields: commits.map((commit: PartialCommit) => ({
         name: `\`${commit.id.slice(0, 8)}\``,
-        value: `\`\`\`fix\n${commit.message.slice(0, 50 - 3)}...\n\`\`\``, /** Trunucate commit message at 50 characters */
+        value: `\`\`\`fix\n${commit.message.slice(0, 50 - 3)}${commit.message.length > 50 ? "..." : ""}\n\`\`\``, /** Trunucate commit message at 50 characters */
         inline: commit.message.length < 50
       })),
       ...Webhook.getDefaults(sender)
