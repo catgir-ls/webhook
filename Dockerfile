@@ -4,10 +4,9 @@ EXPOSE 3000
 
 WORKDIR /app
 USER deno
-COPY deps.ts .
-RUN deno cache deps.ts
+COPY . . 
 
-COPY . .
+RUN deno cache deps.ts
 RUN deno cache main.ts
 
 CMD ["run", "-A", "main.ts"]
