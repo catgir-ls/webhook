@@ -5,9 +5,14 @@
     "@deps": "./deps.ts",
     "@src/types": "./src/types/mod.ts",
     "@src/errors": "./src/errors/mod.ts",
+    "@src/decorators": "./src/decorators/mod.ts",
+
+    
+    "@src/http": "./src/http/mod.ts",
+    "@src/http/events": "./src/http/events/mod.ts",
 
     "@src/config": "./src/config/mod.ts",
     "@src/utils": "./src/utils/mod.ts",
-    "@src/http": "./src/http/mod.ts"
+    "@src/managers": "./src/managers/mod.ts"
   }
 }

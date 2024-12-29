@@ -2,8 +2,18 @@
  * @author e991f665b7e62df5a54fdef19053a4e75117b89 <c@catgir.ls>
  */
 
+/** Managers */
+import { EventManager } from "@src/managers";
+
 /** Errors */
 import { HttpError } from "@src/errors";
+
+/** Types */
+import {
+  type Ret,
+
+  EventType
+} from "@src/types";
 
 /** Router Class */
 class Router {
@@ -11,7 +21,10 @@ class Router {
 
   private server: Deno.HttpServer | null = null;
 
-  constructor(private readonly secret: string) { }
+  constructor(
+    private readonly secret: string,
+    private readonly _events: Ret[] /** This is only used to trigger decorator */
+  ) { }
 
   private isValidSecret = async (
     signature: string,
@@ -49,7 +62,7 @@ class Router {
       !await this.isValidSecret(req.headers.get("X-Hub-Signature-256")!, JSON.stringify(body))
     ) throw new HttpError(500, "Internal Server Error");
 
-    console.log(event, body);
+    EventManager.emit(event as EventType, body);
 
     return new Response("OK", {
       status: 200

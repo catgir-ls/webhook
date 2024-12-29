@@ -7,3 +7,8 @@
 /** Types */
 export type Ret = any;
 export type Obj = Record<Ret, Ret>;
+
+/** Enums */
+export enum EventType {
+  PING = "ping"
+}
