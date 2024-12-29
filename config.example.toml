@@ -7,7 +7,3 @@ secret = ""
 
 [discord]
 webhook_url = ""
-
-[watchtower]
-base_url = ""
-authorization = ""
