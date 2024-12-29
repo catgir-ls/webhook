@@ -23,6 +23,8 @@ class Kubernetes {
     namespace: string,
     repository: string
   ) => {
+    console.log(`Getting deployment: ${namespace}/${repository}`);
+
     const response = await fetch(`${this.base_url}/apis/apps/v1/namespaces/${namespace}/deployments`, {
       headers: {
         "Authorization": `Bearer ${this.token}`,
@@ -56,6 +58,8 @@ class Kubernetes {
       date: Date.now().toString()
     };
 
+    console.log("Forcing Kubernetes to update")
+
     const response = await fetch(`${this.base_url}/apis/apps/v1/namespaces/${namespace}/deployments/${deployment.metadata.name}`, {
       method: "PUT",
       headers: {
@@ -65,6 +69,7 @@ class Kubernetes {
       body: JSON.stringify(deployment)
     });
 
+    console.log(response.status);
     return response.ok;
   }
 

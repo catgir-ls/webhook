@@ -6,7 +6,7 @@
 import { Event } from "@src/decorators";
 
 /** Utils */
-import { Logger } from "../../utils/Logger.ts";
+import { Logger, Kubernetes } from "@src/utils";
 
 /** Config */
 import Config from "@src/config";
@@ -17,7 +17,6 @@ import {
 
   EventType
 } from "@src/types";
-import { Kubernetes } from "../../utils/Kubernetes.ts";
 
 /** WorkflowJob Event */
 @Event([ EventType.WORKFLOW_JOB ])
