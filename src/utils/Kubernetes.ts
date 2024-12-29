@@ -79,6 +79,8 @@ class Kubernetes {
 
     this.base_url = `https://${Deno.env.get("KUBERNETES_SERVICE_HOST")}:${Deno.env.get("KUBERNETES_SERVICE_PORT")}`;
     this.token = Deno.readTextFileSync(TOKEN_PATH);
+
+    console.log(this.base_url, this.token);
     
     return true;
   }
