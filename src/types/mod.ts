@@ -10,5 +10,5 @@ export type Obj = Record<Ret, Ret>;
 
 /** Enums */
 export enum EventType {
-  PING = "ping"
+  PING = "ping", WORKFLOW_JOB = "workflow_job"
 }

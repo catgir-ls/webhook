@@ -4,3 +4,4 @@
 
 /** Events */
 export * from "./Ping.event.ts";
+export * from "./WorkflowJob.event.ts";

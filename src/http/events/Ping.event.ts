@@ -21,7 +21,7 @@ class PingEvent {
   public execute = ({ repository, organization }: Obj) => {
     const name = organization?.login ?? repository?.full_name; 
 
-    Logger.log(`Added to ${name} (github.com/${name})`);
+    Logger.log(`Added to ${name}`);
   }
 }
 

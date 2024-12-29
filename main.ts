@@ -24,11 +24,11 @@ await Config.load(config);
 
 Logger.log(`Loaded ${Object.keys(Config.get()).length} item(s) into the config!`);
 
-// if(!Kubernetes.init()) {
-//   Logger.error("This needs to be ran inside a Kubernetes environment");
+if(!Kubernetes.init()) {
+  Logger.error("This needs to be ran inside a Kubernetes environment");
 
-//   Deno.exit(1);
-// }
+  Deno.exit(1);
+}
 
 Logger.log("Succesfully initialized Kubernetes client");
 
