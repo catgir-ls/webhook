@@ -1,0 +1,6 @@
+# dirs
+.vscode
+
+# files
+*.toml
+!config.example.toml

@@ -1,0 +1,13 @@
+[app]
+debug = true
+port = 3000
+
+[github]
+secret = ""
+
+[discord]
+webhook_url = ""
+
+[watchtower]
+base_url = ""
+authorization = ""
