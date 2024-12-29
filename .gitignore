@@ -1,5 +1,0 @@
-.vscode
-data
-
-*.toml
-!config.example.toml
