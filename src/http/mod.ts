@@ -62,7 +62,6 @@ class Router {
       !await this.isValidSecret(req.headers.get("X-Hub-Signature-256")!, JSON.stringify(body))
     ) throw new HttpError(500, "Internal Server Error");
 
-    console.log(`Handling: ${event}`);
     EventManager.emit(event as EventType, body);
 
     return new Response("OK", {

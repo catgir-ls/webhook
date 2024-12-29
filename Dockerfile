@@ -9,4 +9,4 @@ COPY . .
 RUN deno cache deps.ts
 RUN deno cache main.ts
 
-CMD ["run", "-A", "main.ts"]
+CMD ["run", "-A", "--unsafely-ignore-certificate-errors", "main.ts"]
