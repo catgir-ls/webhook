@@ -6,7 +6,7 @@
 import { Router } from "@src/http";
 
 /** Utils */
-import { Logger } from "@src/utils";
+import { Logger, Kubernetes } from "@src/utils";
 
 /** Config */
 import Config from "@src/config";
@@ -21,6 +21,14 @@ await Config.load(config);
 
 Logger.log(`Loaded ${Object.keys(Config.get()).length} item(s) into the config!`);
 
+if(!Kubernetes.init()) {
+  Logger.error("This needs to be ran inside a Kubernetes environment");
+
+  Deno.exit(1);
+}
+
+Logger.log("Succesfully initialized Kubernetes client");
+
 /** Constants */
 const APP_PORT = Config.get<number>("app", "port");
 
@@ -34,4 +42,3 @@ new Router(Config.get<string>("github", "secret")).listen(APP_PORT, (error) => {
   Logger.error(error.message ?? error.toString());
   Deno.exit(1);
 });
-
